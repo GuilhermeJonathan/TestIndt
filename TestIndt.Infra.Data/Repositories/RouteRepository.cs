@@ -33,9 +33,9 @@ namespace TestIndt.Infra.Data.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Route Route, CancellationToken cancellationToken = default)
+        public async Task DeleteAsync(Route route, CancellationToken cancellationToken = default)
         {
-            _context.Set<Route>().Remove(Route);
+            _context.Rotas.Remove(route);
             await _context.SaveChangesAsync(cancellationToken);
         }
 

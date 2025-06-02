@@ -53,5 +53,29 @@ namespace TestIndt.Api.Controllers
             var result = await _mediator.Send(new GetActiveRoutesQuery());
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRoute(int id, [FromBody] UpdateRouteCommand command)
+        {
+            if (id != command.Id)
+                return BadRequest("Id na URL não corresponde ao body.");
+
+            var result = await _mediator.Send(command);
+            if (result.Success)
+                return Ok(result);
+
+            return BadRequest(result);        
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRoute(int id)
+        {
+            var command = new DeleteRouteCommand { Id = id };
+            var result = await _mediator.Send(command);
+            if (result.Success)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
     }
 }

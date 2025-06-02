@@ -9,5 +9,8 @@ namespace TestIndt.Domain.Entities.Repositories
             int page, int pageSize, string? search, CancellationToken cancellationToken);
 
         Task<IEnumerable<Route>> GetActiveRoutesAsync(CancellationToken cancellationToken);
+
+        Task DeleteAsync(Route route, CancellationToken cancellationToken);
+        Task UpdateAsync(Route entity, CancellationToken cancellationToken = default);
     }
 }
