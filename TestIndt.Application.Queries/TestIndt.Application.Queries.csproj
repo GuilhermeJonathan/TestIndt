@@ -17,4 +17,8 @@
     <ProjectReference Include="..\TestIndt.Domain\TestIndt.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="RouteModule\" />
+  </ItemGroup>
+
 </Project>

@@ -10,6 +10,7 @@ namespace TestIndt.Infra.Data.Context
         }
 
         public DbSet<User> Usuarios { get; set; }
+        public DbSet<Route> Rotas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

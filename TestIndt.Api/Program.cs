@@ -9,6 +9,8 @@ using TestIndt.Domain.Entities.Repositories;
 using TestIndt.Domain.Services;
 using TestIndt.Infra.Data.Context;
 using TestIndt.Infra.Data.Repository;
+using TestIndt.Infra.Data.Repositories;
+using TestIndt.Application.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetUs
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountCodeSuggestionService, AccountCodeSuggestionService>();
 
+builder.Services.AddScoped<IRouteRepository, RouteRepository>();
+
 builder.Services.AddDbContext<DefaultDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
@@ -38,7 +42,7 @@ builder.Services.AddDbContext<DefaultDbContext>(options =>
 builder.Services.AddValidatorsFromAssemblyContaining<TestIndt.Application.Commands.UsuarioModule.Validations.CreateUserCommandValidator>();
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-//builder.Services.AddAutoMapper(typeof(AccountProfile).Assembly, typeof(CustomerProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(RouteProfile).Assembly);
 
 var app = builder.Build();
 
