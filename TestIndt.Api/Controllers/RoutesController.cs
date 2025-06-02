@@ -44,6 +44,13 @@ namespace TestIndt.Api.Controllers
         {
             var query = new GetRoutesPaginateQuery(page, pageSize, search);
             var result = await _mediator.Send(query);
+            return Ok(result);  
+        }
+
+        [HttpGet("active")]
+        public async Task<IActionResult> GetActiveRoutes()
+        {
+            var result = await _mediator.Send(new GetActiveRoutesQuery());
             return Ok(result);
         }
     }

@@ -47,7 +47,7 @@ namespace TestIndt.Infra.Data.Repositories
             if (!string.IsNullOrWhiteSpace(search))
             {
                 bool isEnum = Enum.TryParse<RotaEnum>(search, true, out var rotaEnumValue);
-                query = query.Where(u => u.Nome.Contains(search) || 
+                query = query.Where(u => u.Nome.Contains(search) ||
                     (isEnum && (u.Origem == rotaEnumValue || u.Destino == rotaEnumValue))
                 );
             }
@@ -61,6 +61,13 @@ namespace TestIndt.Infra.Data.Repositories
                 .ToListAsync(cancellationToken);
 
             return (Routes, totalCount);
+        }
+
+        public async Task<IEnumerable<Route>> GetActiveRoutesAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Rotas
+                .Where(r => r.Ativo)
+                .ToListAsync(cancellationToken);
         }
     }
 }

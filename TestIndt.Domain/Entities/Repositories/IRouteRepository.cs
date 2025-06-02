@@ -7,5 +7,7 @@ namespace TestIndt.Domain.Entities.Repositories
 
         Task<(IEnumerable<Route> Routes, int TotalCount)> GetPaginatedAsync(
             int page, int pageSize, string? search, CancellationToken cancellationToken);
+
+        Task<IEnumerable<Route>> GetActiveRoutesAsync(CancellationToken cancellationToken);
     }
 }

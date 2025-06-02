@@ -9,7 +9,7 @@ namespace TestIndt.Application.Profiles
         public RouteProfile()
         {
             CreateMap<Route, RouteDTO>();
-
+            CreateMap<Route, RouteResumeDTO>();
         }
     }
-}
+}   
