@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
+using TestIndt.Application.CrossCutting.Enum;
 using TestIndt.Domain.Entities;
 using TestIndt.Domain.Entities.Repositories;
 using TestIndt.Infra.Data.Context;
@@ -17,10 +16,9 @@ namespace TestIndt.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<Route?> GetAsync(long Id, CancellationToken cancellationToken = default)
+        public async Task<Route?> GetByIdAsync(long Id, CancellationToken cancellationToken = default)
         {
-            return await _context.Rotas
-                        .FirstOrDefaultAsync(a => a.Id == Id, cancellationToken);
+            return await _context.Rotas.FirstOrDefaultAsync(a => a.Id == Id, cancellationToken);
         }
 
         public async Task AddAsync(Route Route, CancellationToken cancellationToken = default)
@@ -48,7 +46,10 @@ namespace TestIndt.Infra.Data.Repositories
 
             if (!string.IsNullOrWhiteSpace(search))
             {
-                query = query.Where(u => u.Nome.Contains(search));
+                bool isEnum = Enum.TryParse<RotaEnum>(search, true, out var rotaEnumValue);
+                query = query.Where(u => u.Nome.Contains(search) || 
+                    (isEnum && (u.Origem == rotaEnumValue || u.Destino == rotaEnumValue))
+                );
             }
 
             var totalCount = await query.CountAsync(cancellationToken);
