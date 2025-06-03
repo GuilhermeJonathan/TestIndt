@@ -2,7 +2,7 @@ namespace TestIndt.Domain.Entities.Repositories
 {
     public interface IRouteRepository : IRepository<Route>
     {
-        Task AddAsync(Route route, CancellationToken cancellationToken);
+        Task<Route> AddAsync(Route route, CancellationToken cancellationToken);
         Task<Route?> GetByIdAsync(long Id, CancellationToken cancellationToken = default);
 
         Task<(IEnumerable<Route> Routes, int TotalCount)> GetPaginatedAsync(

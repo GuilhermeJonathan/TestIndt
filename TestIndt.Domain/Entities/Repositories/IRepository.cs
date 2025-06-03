@@ -14,11 +14,11 @@ namespace TestIndt.Domain.Entities.Repositories
         Task DeleteRangeAsync(IEnumerable<TEntity> entities);
         Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
         IEnumerable<TEntity> GetAll();
         TEntity GetById(long id);
         Task<TEntity> GetByIdAsync(long id);
-        IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
         Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
         void Update(TEntity entity);
         Task UpdateAsync(TEntity entity);

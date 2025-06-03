@@ -21,10 +21,11 @@ namespace TestIndt.Infra.Data.Repositories
             return await _context.Rotas.FirstOrDefaultAsync(a => a.Id == Id, cancellationToken);
         }
 
-        public async Task AddAsync(Route Route, CancellationToken cancellationToken = default)
+        public async Task<Route> AddAsync(Route Route, CancellationToken cancellationToken = default)
         {
             await _context.Rotas.AddAsync(Route, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+            return Route;
         }
 
         public async Task UpdateAsync(Route entity, CancellationToken cancellationToken = default)

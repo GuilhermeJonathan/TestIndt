@@ -9,6 +9,7 @@ namespace TestIndt.Domain.Entities
             Ativo = true;
         }
 
+        public new long Id { get; set; }
         public string Nome { get; set; }        
         public RotaEnum Origem { get; set; }
         public RotaEnum Destino { get; set; }        

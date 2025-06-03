@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TestIndt.Application.Commands.RouteModule.Command;
 using TestIndt.Application.Queries.RouteModule.Query;
+using TestIndt.Application.CrossCutting.Enum;
 
 namespace TestIndt.Api.Controllers
 {
@@ -51,6 +52,21 @@ namespace TestIndt.Api.Controllers
         public async Task<IActionResult> GetActiveRoutes()
         {
             var result = await _mediator.Send(new GetActiveRoutesQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("best")]
+        public async Task<IActionResult> GetBestRoute([FromQuery] RotaEnum origem, [FromQuery] RotaEnum destino)
+        {
+            if (origem == destino)
+                return BadRequest("Origem não pode ser igual ao destino.");
+
+            var query = new GetBestRouteQuery { Origem = origem, Destino = destino };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+                return NotFound();
+
             return Ok(result);
         }
 

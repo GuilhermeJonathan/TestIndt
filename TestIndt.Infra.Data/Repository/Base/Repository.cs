@@ -75,7 +75,7 @@ namespace TestIndt.Infra.Data.Repository.Base
             return _context.Set<TEntity>().ToList();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
@@ -95,7 +95,7 @@ namespace TestIndt.Infra.Data.Repository.Base
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
-        public virtual IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
+        public virtual IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
         {
             return _context.Set<TEntity>().Where(predicate);
         }
